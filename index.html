@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dice Generator</title>
+    <style type="text/css">
+    
+    .d6{
+        width:215px;
+    	height:215px;
+    	text-decoration:none;
+    	display:block;
+    	background-image:url(images/d6_flat_faces.png);   
+    }
+
+    .d6_1{background-position: 0 0;}
+    .d6_2{background-position: 448px 0;}
+    .d6_3{background-position: 227px 0;}
+    .d6_4{background-position: 0 225px;}
+    .d6_5{background-position: 445px 225px;}
+    .d6_6{background-position: 223px 225px;}
+    
+    </style>
+</head>
+
+<body>
+    <div id="mainContent">
+        <button id="roll_button">Roll</button>
+        <ul class="d6_dice" id="dicelist">
+            <li class="d6 d6_1"><a href="#1"></a></li>
+            <li class="d6 d6_2"><a href="#2"></a></li>
+            <li class="d6 d6_3"><a href="#3"></a></li>
+            <li class="d6 d6_4"><a href="#4"></a></li>
+            <li class="d6 d6_5"><a href="#5"></a></li>
+            <li class="d6 d6_6"><a href="#6"></a></li>
+        </ul>
+
+    </div>
+    <script> 
+        function rollDice(){
+            var diceNumber = new Array();
+            diceNumber[0] = Math.round(Math.floor(Math.random() * 6)) + 1;
+            diceNumber[1] = Math.round(Math.floor(Math.random() * 6)) + 1;
+            diceNumber[2] = Math.round(Math.floor(Math.random() * 6)) + 1;
+            diceNumber[3] = Math.round(Math.floor(Math.random() * 6)) + 1;
+            diceNumber[4] = Math.round(Math.floor(Math.random() * 6)) + 1;
+            diceNumber[5] = Math.round(Math.floor(Math.random() * 6)) + 1;
+        }
+        
+        function removeDice() {
+            //remove the previous dice list
+            var elem = document.getElementById('dicelist');
+            elem.parentNode.removeChild(elem);
+            
+            //re-roll and re-insert new dice
+            rollDice();
+            removeDice();
+            for(var i = 0; i < 6; i++){
+                var listElement = "<li class=\"d6 d" + number[0] + "\"><a href=\"#6\"></a></li>";
+                document.write("<ul>");
+                document.write(listElement);
+                document.write("</ul>");
+            }
+            return false;
+        }
+        
+        function pageInit() {
+            // Hook up the "roll button" button
+            var btn = document.getElementById('roll_button');
+            btn.addEventListener('click', rollDice, false);
+        }
+        
+        pageInit();
+
+    </script>
+
+</body>
+</html>
