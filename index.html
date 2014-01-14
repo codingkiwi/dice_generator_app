@@ -27,6 +27,28 @@
 </head>
 
 <body>
+    <select id="numberOfDice">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+    </select>
     <div id="mainContent">
         <ul class="d6_dice" id="dicelist">
             <li class="d6 d6_1"><a href="#1"></a></li>
@@ -39,7 +61,8 @@
 
     </div>
     <script> 
-    
+        
+        //Randomly generates numbers for the dice and returns an array of their values
         function rollDice(){
             var diceNumber = [];
             for (var i = 0; i < 6; i++){
@@ -48,6 +71,7 @@
             return diceNumber;
         }
         
+        // removes the current dice and calls rollDice, then adds the new dice to the page
         function reRoll() {
             //remove the previous dice list
             $("#dicelist").empty();
@@ -56,7 +80,6 @@
             var number = rollDice();
             
             //print HTML for new dice list
-            $("#dicelist").append("<ul  class=\"d6_dice\" id=\"dicelist\">");
             for(var i = 0; i < 6; i++){
                 $("#dicelist").append("<li class=\"d6 d6_" + number[i] + "\"><a href=\"#6\"></a></li>");
             }
@@ -65,13 +88,13 @@
             return false;
         }
         
+        // initialization function
         function pageInit() {
-            // Hook up the "roll button" button
+            //Hook up the roll dice function to be triggered when a user clicks in the dice div area
             $("#dicelist").click(function(){
                 reRoll();
             });
         }
-        
         pageInit();
 
     </script>
