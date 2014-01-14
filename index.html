@@ -49,6 +49,10 @@
         <option value="19">19</option>
         <option value="20">20</option>
     </select>
+    <select id="diceType">
+        <option value="6">D6</option>
+        <option value="3">D3</option>
+    </select>
     <button id="rollButton" type="button">Roll Dice</button>
     <div id="mainContent">
         <ul class="d6_dice" id="dicelist">
@@ -64,21 +68,29 @@
     <script> 
         
         //Randomly generates numbers for the dice and returns an array of their values
-        function rollDice(amountOfDice){
+        function rollDice(amountOfDice, diceFace){
             var diceNumber = [];
-            for (var i = 0; i < amountOfDice; i++){
-                diceNumber[i] = Math.round(Math.floor(Math.random() * 6)) + 1; 
+            
+            if(diceFace == 3){
+                for (var i = 0; i < amountOfDice; i++){
+                    diceNumber[i] = Math.round(Math.floor(Math.random() * 3)) + 1; 
+                }
+            }
+            else{
+                for (var i = 0; i < amountOfDice; i++){
+                    diceNumber[i] = Math.round(Math.floor(Math.random() * 6)) + 1; 
+                }
             }
             return diceNumber;
         }
         
         // removes the current dice and calls rollDice, then adds the new dice to the page
-        function reRoll(diceAmount) {
+        function reRoll(diceAmount, typeOfDice) {
             //remove the previous dice list
             $("#dicelist").empty();
             
             //re-roll and re-insert new dice
-            var number = rollDice(diceAmount);
+            var number = rollDice(diceAmount, typeOfDice);
             
             //print HTML for new dice list
             for(var i = 0; i < diceAmount; i++){
@@ -94,7 +106,8 @@
             //Hook up the roll dice function to be triggered when a user clicks in the dice div area
             $("#rollButton").click(function(){
                 var numberOfDice = $("#numberOfDice").val();
-                reRoll(numberOfDice);
+                var diceType = $("#diceType").val();
+                reRoll(numberOfDice, diceType);
             });
         }
         pageInit();
