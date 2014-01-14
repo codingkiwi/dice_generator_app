@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Dice Generator</title>
+    
     <style type="text/css">
     
     .d6{
@@ -22,6 +23,7 @@
     .d6_6{background-position: 223px 225px;}
     
     </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -38,37 +40,41 @@
 
     </div>
     <script> 
+    
         function rollDice(){
-            var diceNumber = new Array();
+            var diceNumber = [];
             diceNumber[0] = Math.round(Math.floor(Math.random() * 6)) + 1;
             diceNumber[1] = Math.round(Math.floor(Math.random() * 6)) + 1;
             diceNumber[2] = Math.round(Math.floor(Math.random() * 6)) + 1;
             diceNumber[3] = Math.round(Math.floor(Math.random() * 6)) + 1;
             diceNumber[4] = Math.round(Math.floor(Math.random() * 6)) + 1;
             diceNumber[5] = Math.round(Math.floor(Math.random() * 6)) + 1;
+            return diceNumber;
         }
         
-        function removeDice() {
+        function reRoll() {
             //remove the previous dice list
-            var elem = document.getElementById('dicelist');
-            elem.parentNode.removeChild(elem);
+            $("#dicelist").empty();
             
             //re-roll and re-insert new dice
-            rollDice();
-            removeDice();
+            var number = rollDice();
+            
+            //print HTML for new dice list
+            $("dicelist").append("<ul  class=\"d6_dice\" id=\"dicelist\">");
             for(var i = 0; i < 6; i++){
-                var listElement = "<li class=\"d6 d" + number[0] + "\"><a href=\"#6\"></a></li>";
-                document.write("<ul>");
-                document.write(listElement);
-                document.write("</ul>");
+                var listElement = "<li class=\"d6 d6_" + number[i] + "\"><a href=\"#6\"></a></li>";
+                $("dicelist").append(listElement);
             }
+            $("dicelist").append("</ul>");
+            
             return false;
         }
         
         function pageInit() {
             // Hook up the "roll button" button
-            var btn = document.getElementById('roll_button');
-            btn.addEventListener('click', rollDice, false);
+            $("#roll_button").click(function(){
+                reRoll();
+            });
         }
         
         pageInit();
