@@ -43,12 +43,9 @@
     
         function rollDice(){
             var diceNumber = [];
-            diceNumber[0] = Math.round(Math.floor(Math.random() * 6)) + 1;
-            diceNumber[1] = Math.round(Math.floor(Math.random() * 6)) + 1;
-            diceNumber[2] = Math.round(Math.floor(Math.random() * 6)) + 1;
-            diceNumber[3] = Math.round(Math.floor(Math.random() * 6)) + 1;
-            diceNumber[4] = Math.round(Math.floor(Math.random() * 6)) + 1;
-            diceNumber[5] = Math.round(Math.floor(Math.random() * 6)) + 1;
+            for (var i = 0; i < 6; i++){
+                diceNumber[i] = Math.round(Math.floor(Math.random() * 6)) + 1; 
+            }
             return diceNumber;
         }
         
@@ -60,12 +57,11 @@
             var number = rollDice();
             
             //print HTML for new dice list
-            $("dicelist").append("<ul  class=\"d6_dice\" id=\"dicelist\">");
+            $("#dicelist").append("<ul  class=\"d6_dice\" id=\"dicelist\">");
             for(var i = 0; i < 6; i++){
-                var listElement = "<li class=\"d6 d6_" + number[i] + "\"><a href=\"#6\"></a></li>";
-                $("dicelist").append(listElement);
+                $("#dicelist").append("<li class=\"d6 d6_" + number[i] + "\"><a href=\"#6\"></a></li>");
             }
-            $("dicelist").append("</ul>");
+            $("#dicelist").append("</ul>");
             
             return false;
         }
