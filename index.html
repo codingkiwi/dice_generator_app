@@ -49,6 +49,7 @@
         <option value="19">19</option>
         <option value="20">20</option>
     </select>
+    <button id="rollButton" type="button">Roll Dice</button>
     <div id="mainContent">
         <ul class="d6_dice" id="dicelist">
             <li class="d6 d6_1"><a href="#1"></a></li>
@@ -63,24 +64,24 @@
     <script> 
         
         //Randomly generates numbers for the dice and returns an array of their values
-        function rollDice(){
+        function rollDice(amountOfDice){
             var diceNumber = [];
-            for (var i = 0; i < 6; i++){
+            for (var i = 0; i < amountOfDice; i++){
                 diceNumber[i] = Math.round(Math.floor(Math.random() * 6)) + 1; 
             }
             return diceNumber;
         }
         
         // removes the current dice and calls rollDice, then adds the new dice to the page
-        function reRoll() {
+        function reRoll(diceAmount) {
             //remove the previous dice list
             $("#dicelist").empty();
             
             //re-roll and re-insert new dice
-            var number = rollDice();
+            var number = rollDice(diceAmount);
             
             //print HTML for new dice list
-            for(var i = 0; i < 6; i++){
+            for(var i = 0; i < diceAmount; i++){
                 $("#dicelist").append("<li class=\"d6 d6_" + number[i] + "\"><a href=\"#6\"></a></li>");
             }
             $("#dicelist").append("</ul>");
@@ -91,8 +92,9 @@
         // initialization function
         function pageInit() {
             //Hook up the roll dice function to be triggered when a user clicks in the dice div area
-            $("#dicelist").click(function(){
-                reRoll();
+            $("#rollButton").click(function(){
+                var numberOfDice = $("#numberOfDice").val();
+                reRoll(numberOfDice);
             });
         }
         pageInit();
