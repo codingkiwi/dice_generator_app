@@ -3,23 +3,29 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dice Generator</title>
-    
     <style type="text/css">
     
+    .d6_dice{
+        margin: 0;
+    	padding: 0;
+    }
+    
     .d6{
-        width:215px;
-    	height:215px;
+        width:64px;
+    	height:64px;
     	text-decoration:none;
-    	display:block;
-    	background-image:url(images/d6_flat_faces.png);   
+    	list-style-type:none;
+    	float: left;
+    	background-image:url(images/d6_flat_faces_small.png);   
     }
     .d6_1{background-position: 0 0;}
-    .d6_2{background-position: 448px 0;}
-    .d6_3{background-position: 227px 0;}
-    .d6_4{background-position: 0 225px;}
-    .d6_5{background-position: 445px 225px;}
-    .d6_6{background-position: 223px 225px;}
+    .d6_2{background-position: 130px 0;}
+    .d6_3{background-position: 65px 0;}
+    .d6_4{background-position: 0 65px;}
+    .d6_5{background-position: 130px 65px;}
+    .d6_6{background-position: 65px 65px;}
     
     </style>
     
@@ -50,6 +56,17 @@
         <option value="18">18</option>
         <option value="19">19</option>
         <option value="20">20</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
     </select>
     
     <select id="diceType">
@@ -67,8 +84,8 @@
     <div id="mainContent">
         <ul class="d6_dice" id="dicelist">
         </ul>
-
     </div>
+    
     <script> 
         
         //Randomly generates numbers for the dice and returns an array of their values
@@ -85,6 +102,7 @@
                     diceNumber[j] = Math.round(Math.floor(Math.random() * 6)) + 1; 
                 }
             }
+            diceNumber.sort(function(a,b){return b-a});
             return diceNumber;
         }
         
@@ -103,7 +121,7 @@
                 diceTotal = diceTotal + number[i];
             }
             $("#dicelist").append("</ul>");
-            
+    
             //print HTML for dice total score
             $("#diceTotal").empty();
             $("#diceTotal").append("<h2>Total: " + diceTotal);
@@ -112,7 +130,7 @@
         
         // initialization function
         function pageInit() {
-            //Hook up the roll dice function to be triggered when a user clicks in the dice div area
+            // Hook up the roll dice function to be triggered when a user clicks in the dice div area
             $("#rollButton").click(function(){
                 var numberOfDice = $("#numberOfDice").val();
                 var diceType = $("#diceType").val();
