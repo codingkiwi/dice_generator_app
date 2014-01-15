@@ -14,7 +14,6 @@
     	display:block;
     	background-image:url(images/d6_flat_faces.png);   
     }
-
     .d6_1{background-position: 0 0;}
     .d6_2{background-position: 448px 0;}
     .d6_3{background-position: 227px 0;}
@@ -23,10 +22,13 @@
     .d6_6{background-position: 223px 225px;}
     
     </style>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
 </head>
 
 <body>
+
     <select id="numberOfDice">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -49,19 +51,21 @@
         <option value="19">19</option>
         <option value="20">20</option>
     </select>
+    
     <select id="diceType">
         <option value="6">D6</option>
         <option value="3">D3</option>
     </select>
+    
     <button id="rollButton" type="button">Roll Dice</button>
+    
+    <!-- Div to output dice total dynamically -->
+    <div id="diceTotal">
+    </div>
+    
+    <!-- Div to output dice images dynamically -->
     <div id="mainContent">
         <ul class="d6_dice" id="dicelist">
-            <li class="d6 d6_1"><a href="#1"></a></li>
-            <li class="d6 d6_2"><a href="#2"></a></li>
-            <li class="d6 d6_3"><a href="#3"></a></li>
-            <li class="d6 d6_4"><a href="#4"></a></li>
-            <li class="d6 d6_5"><a href="#5"></a></li>
-            <li class="d6 d6_6"><a href="#6"></a></li>
         </ul>
 
     </div>
@@ -77,8 +81,8 @@
                 }
             }
             else{
-                for (var i = 0; i < amountOfDice; i++){
-                    diceNumber[i] = Math.round(Math.floor(Math.random() * 6)) + 1; 
+                for (var j = 0; j < amountOfDice; j++){
+                    diceNumber[j] = Math.round(Math.floor(Math.random() * 6)) + 1; 
                 }
             }
             return diceNumber;
@@ -91,13 +95,18 @@
             
             //re-roll and re-insert new dice
             var number = rollDice(diceAmount, typeOfDice);
+            var diceTotal = 0;
             
             //print HTML for new dice list
             for(var i = 0; i < diceAmount; i++){
                 $("#dicelist").append("<li class=\"d6 d6_" + number[i] + "\"><a href=\"#6\"></a></li>");
+                diceTotal = diceTotal + number[i];
             }
             $("#dicelist").append("</ul>");
             
+            //print HTML for dice total score
+            $("#diceTotal").empty();
+            $("#diceTotal").append("<h2>Total: " + diceTotal);
             return false;
         }
         
