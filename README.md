@@ -1,1 +1,1 @@
-Random dice generator JS application
+Randomly generates (with javascripts math.rand function) up to 50 dice for general gaming use. Provides an individual dice tally and total.
