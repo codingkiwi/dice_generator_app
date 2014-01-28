@@ -2,14 +2,22 @@
 // initialization function
 function pageInit() {
     // Hook up the roll dice function to be triggered when a user clicks in the dice div area
-    $("#rollButton").click(function(){
+    $(document).on("click", "#rollButton", function(){
         var numberOfDice = $("#numberOfDice").val();
         var diceType = $("#diceType").val();
         roll(numberOfDice, diceType);
     });
     
+    $(document).on("click", "#reRollButton", function(){
+        $("#diceList li").each(function() {
+            if($(this).hasClass("d6_inactive")){
+            console.log("dicewasrerolled");    
+            }
+        });
+    });
+    
     // Toggle the state of an individual die via css when it is clicked
-    $(document).on('click', '#dicelist li', function(){
+    $(document).on("click", "#diceList li", function(){
         toggleDiceStatus($(this));
     });
 }
@@ -69,7 +77,7 @@ function rollDice(numberOfDice, diceType){
 // removes the current dice and calls rollDice, then adds the new dice to the page
 function roll(numberOfDice, diceType){
     //remove the previous dice list
-    $("#dicelist").empty();
+    $("#diceList").empty();
     $("#diceTotal").empty();
     $("#diceTally").empty();
     
@@ -79,7 +87,7 @@ function roll(numberOfDice, diceType){
     
     //print HTML for new dice list
     for (var i = 0; i < numberOfDice; i++){
-        $("#dicelist").append("<li class=\"dice" + i + " d6_active d6_" + diceData[0][i] + "\"><a href=\"#6\"></a></li>");
+        $("#diceList").append("<li class=\"dice" + i + " d6_active d6_" + diceData[0][i] + "\"><a href=\"#6\"></a></li>");
         diceTotal = diceTotal + diceData[0][i];
     }
     //print HTML for dice total score
@@ -95,6 +103,7 @@ function roll(numberOfDice, diceType){
     return false;
 }
 
+// toggle the dice sprite when selected between active and inactive
 function toggleDiceStatus(selectedDie){
     if (selectedDie.hasClass("d6_active")){
         selectedDie.addClass("d6_inactive").removeClass("d6_active");
