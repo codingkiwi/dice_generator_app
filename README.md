@@ -1,1 +1,1 @@
-Well read.
+Random dice generator JS application
