@@ -10,7 +10,7 @@ function pageInit() {
     
     // Toggle the state of an individual die via css when it is clicked
     $(document).on('click', '#dicelist li', function(){
-        $(this).addClass("d6_inactive").removeClass("d6_active");
+        toggleDiceStatus($(this));
     });
 }
 pageInit();
@@ -93,5 +93,17 @@ function roll(numberOfDice, diceType){
     $("#diceTally").append("</ol>"); 
     
     return false;
+}
+
+function toggleDiceStatus(selectedDie){
+    if (selectedDie.hasClass("d6_active")){
+        selectedDie.addClass("d6_inactive").removeClass("d6_active");
+    }
+    else if (selectedDie.hasClass("d6_inactive")){
+        selectedDie.addClass("d6_active").removeClass("d6_inactive");
+    }
+    else {
+        console.log("toggleDiceStatus function failed to select a status class");
+    }
 }
     
