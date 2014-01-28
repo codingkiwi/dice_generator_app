@@ -1,27 +1,29 @@
-    .d6_dice{
-        margin: 0;
-    	padding: 0;
-    }
-    
-    .d6_active{
-        width:64px;
-    	height:64px;
-    	text-decoration:none;
-    	list-style-type:none;
-    	float: left;
-    	background-image:url(../images/d6_flat_faces_small.png);   
-    }
-    .d6_inactive{
-        width:64px;
-    	height:64px;
-    	text-decoration:none;
-    	list-style-type:none;
-    	float: left;
-    	background-image:url(../images/d6_flat_faces_grey_small.png);   
-    }
-    .d6_1{background-position: 0 0;}
-    .d6_2{background-position: 130px 0;}
-    .d6_3{background-position: 65px 0;}
-    .d6_4{background-position: 0 65px;}
-    .d6_5{background-position: 130px 65px;}
-    .d6_6{background-position: 65px 65px;}
+.d6_dice{
+    margin: 0;
+	padding: 0;
+}
+
+.d6_active{
+    width:64px;
+	height:64px;
+	text-decoration:none;
+	list-style-type:none;
+	float: left;
+	background-image:url(../images/d6_flat_faces_small.png);   
+}
+
+.d6_inactive{
+    width:64px;
+	height:64px;
+	text-decoration:none;
+	list-style-type:none;
+	float: left;
+	background-image:url(../images/d6_flat_faces_grey_small.png);   
+}
+
+.d6_1{background-position: 0 0;}
+.d6_2{background-position: 130px 0;}
+.d6_3{background-position: 65px 0;}
+.d6_4{background-position: 0 65px;}
+.d6_5{background-position: 130px 65px;}
+.d6_6{background-position: 65px 65px;}
