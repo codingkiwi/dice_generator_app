@@ -200,15 +200,15 @@
         // initialization function
         function pageInit() {
             // Hook up the roll dice function to be triggered when a user clicks in the dice div area
-            $('#rollButton').click(function(){
+            $("#rollButton").click(function(){
                 var numberOfDice = $("#numberOfDice").val();
                 var diceType = $("#diceType").val();
                 roll(numberOfDice, diceType);
             });
             
-          //  $('.d6_active').live('click', function(){
-          //      $(this).addClass("d6_inactive").removeClass("d6_active");
-          //  });
+            $(document).on('click', '#dicelist li', function(){
+                $(this).addClass("d6_inactive").removeClass("d6_active");
+            });
         }
         pageInit();
 
