@@ -3,16 +3,14 @@
 function pageInit() {
     // Hook up the roll dice function to be triggered when a user clicks in the dice div area
     $(document).on("click", "#rollButton", function(){
-        var numberOfDice = $("#numberOfDice").val();
-        var diceType = $("#diceType").val();
-        roll(numberOfDice, diceType);
+        roll($("#numberOfDice").val(), $("#diceType").val());
     });
     
     $(document).on("click", "#reRollButton", function(){
         $("#diceList li").each(function() {
             if($(this).hasClass("d6_inactive")){
                 //console.log("dicewasrerolled");    
-                reRoll($(this));
+                reRoll($(this), $("#diceType").val());
             }
         });
     });
@@ -118,8 +116,8 @@ function toggleDiceStatus(selectedDie){
 }
 
 // generate new numbers for deselected dice and change the CSS class accordingly
-function reRoll(selectedDie){
-    var diceData = generateDice(1,6);
+function reRoll(selectedDie, diceType){
+    var diceData = generateDice(1,diceType);
     selectedDie.addClass("d6_active").removeClass("d6_inactive");
     selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0][0]);
 }
