@@ -11,7 +11,8 @@ function pageInit() {
     $(document).on("click", "#reRollButton", function(){
         $("#diceList li").each(function() {
             if($(this).hasClass("d6_inactive")){
-            console.log("dicewasrerolled");    
+                //console.log("dicewasrerolled");    
+                reRoll($(this));
             }
         });
     });
@@ -24,7 +25,7 @@ function pageInit() {
 pageInit();
 
 //Randomly generates numbers for the dice and returns an array of their values
-function rollDice(numberOfDice, diceType){
+function generateDice(numberOfDice, diceType){
     var diceNumber = [];
     var diceTally = [];
         
@@ -74,7 +75,7 @@ function rollDice(numberOfDice, diceType){
     return [diceNumber, diceTally];
 }
 
-// removes the current dice and calls rollDice, then adds the new dice to the page
+// removes the current dice and calls generateDice, then adds the new dice to the page
 function roll(numberOfDice, diceType){
     //remove the previous dice list
     $("#diceList").empty();
@@ -82,7 +83,7 @@ function roll(numberOfDice, diceType){
     $("#diceTally").empty();
     
     //re-roll and re-insert new dice
-    var diceData = rollDice(numberOfDice, diceType);
+    var diceData = generateDice(numberOfDice, diceType);
     var diceTotal = 0;
     
     //print HTML for new dice list
@@ -112,7 +113,13 @@ function toggleDiceStatus(selectedDie){
         selectedDie.addClass("d6_active").removeClass("d6_inactive");
     }
     else {
-        console.log("toggleDiceStatus function failed to select a status class");
+        console.error("toggleDiceStatus function failed to select a status class");
     }
 }
-    
+
+// generate new numbers for deselected dice and change the CSS class accordingly
+function reRoll(selectedDie){
+    var diceData = generateDice(1,6);
+    selectedDie.addClass("d6_active").removeClass("d6_inactive");
+    selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0][0]);
+}
