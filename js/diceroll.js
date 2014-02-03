@@ -120,4 +120,5 @@ function reRoll(selectedDie, diceType){
     var diceData = generateDice(1,diceType);
     selectedDie.addClass("d6_active").removeClass("d6_inactive");
     selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0][0]);
+    // !!!!! need to fix so rerolling updates the dice total and tally !!!!!
 }
