@@ -1,5 +1,6 @@
 var diceNumber = [];
 var diceTally = [];
+var diceTotal = 0;
     
 // initialization function
 function pageInit() {
@@ -32,6 +33,8 @@ function generateDice(numberOfDice, diceType){
         for (var m = 0; m <= 6; m++){
             diceTally[m] = 0;
         }
+        diceTotal = 0;
+        diceNumber = [];
     }
             
     if (diceType == 3){
@@ -73,7 +76,7 @@ function generateDice(numberOfDice, diceType){
     }
     //sort dice numerically highest to lowest
     diceNumber.sort(function(a,b){return b-a});
-    return [diceNumber, diceTally];
+    return diceNumber;
 }
 
 // removes the current dice and calls generateDice, then adds the new dice to the page
@@ -85,12 +88,11 @@ function roll(numberOfDice, diceType){
     
     //re-roll and re-insert new dice
     var diceData = generateDice(numberOfDice, diceType);
-    var diceTotal = 0;
     
     //print HTML for new dice list
     for (var i = 0; i < numberOfDice; i++){
-        $("#diceList").append("<li class=\"dice" + i + " d6_active d6_" + diceData[0][i] + "\"><a href=\"#6\"></a></li>");
-        diceTotal = diceTotal + diceData[0][i];
+        $("#diceList").append("<li class=\"dice" + i + " d6_active d6_" + diceData[i] + "\"><a href=\"#6\"></a></li>");
+        diceTotal = diceTotal + diceData[i];
     }
     //print HTML for dice total score
     $("#diceTotal").append("<h2>Total: " + diceTotal + "</h2>");
@@ -98,7 +100,7 @@ function roll(numberOfDice, diceType){
     //print HTML for dice tallies
     $("#diceTally").append("<ol>");
     for (var l = 1; l <= diceType; l++){
-        $("#diceTally").append("<li>" + diceData[1][l] + "</li>");
+        $("#diceTally").append("<li>" + diceTally[l] + "</li>");
     }
     $("#diceTally").append("</ol>"); 
     
@@ -121,31 +123,41 @@ function toggleDiceStatus(selectedDie){
 // generate new numbers for deselected dice and change the CSS class accordingly
 function reRoll(selectedDie, diceType){
     var diceData = generateDice(1,diceType);
-    selectedDie.addClass("d6_active").removeClass("d6_inactive");
+    toggleDiceStatus(selectedDie);
     
     // find the value of the current Die
     if (selectedDie.hasClass("d6_1")){
         diceTally[1] -= 1;
+        diceTotal -= 1;
     }
     else if (selectedDie.hasClass("d6_2")){
-        diceTally[2] -= 1;        
+        diceTally[2] -= 1;   
+        diceTotal -= 2;
     }
     else if (selectedDie.hasClass("d6_3")){
-        diceTally[3] -= 1;        
+        diceTally[3] -= 1;
+        diceTotal -= 3;
     }
     else if (selectedDie.hasClass("d6_4")){
-        diceTally[4] -= 1;        
+        diceTally[4] -= 1;
+        diceTotal -= 4;
     }
     else if (selectedDie.hasClass("d6_5")){
         diceTally[5] -= 1;        
+        diceTotal -= 5;
     }
     else if (selectedDie.hasClass("d6_6")){
         diceTally[6] -= 1;        
+        diceTotal -= 6;
     }
+    
+    diceTotal += diceData[0];
 
-
-    //print HTML for dice tallies
+    //re-print HTML for dice tallies and totals
     $("#diceTally").empty();
+    $("#diceTotal").empty();
+    
+    $("#diceTotal").append("<h2>Total: " + diceTotal + "</h2>");
     
     $("#diceTally").append("<ol>");
     for (var l = 1; l <= diceType; l++){
@@ -153,9 +165,7 @@ function reRoll(selectedDie, diceType){
     }
     $("#diceTally").append("</ol>"); 
     
-    selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0][0]);
-
-    // !!!!! need to fix so rerolling updates the dice total and tally !!!!!
+    selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0]);
 }
 
 
