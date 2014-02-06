@@ -1,34 +1,37 @@
-
+var diceNumber = [];
+var diceTally = [];
+    
 // initialization function
 function pageInit() {
     // Hook up the roll dice function to be triggered when a user clicks in the dice div area
     $(document).on("click", "#rollButton", function(){
         roll($("#numberOfDice").val(), $("#diceType").val());
     });
-    
-    $(document).on("click", "#reRollButton", function(){
-        $("#diceList li").each(function() {
-            if($(this).hasClass("d6_inactive")){
-                //console.log("dicewasrerolled");    
-                reRoll($(this), $("#diceType").val());
-            }
-        });
-    });
-    
+        
     // Toggle the state of an individual die via css when it is clicked
     $(document).on("click", "#diceList li", function(){
         toggleDiceStatus($(this));
+    });
+    
+    // re-rolls selected dice when the re-roll button is clicked
+    $(document).on("click", "#reRollButton", function(){
+        $("#diceList li").each(function() {
+            if($(this).hasClass("d6_inactive")){
+                reRoll($(this), $("#diceType").val());
+            }
+        });
     });
 }
 pageInit();
 
 //Randomly generates numbers for the dice and returns an array of their values
 function generateDice(numberOfDice, diceType){
-    var diceNumber = [];
-    var diceTally = [];
-        
-    for (var m = 0; m <= 6; m++){
-        diceTally[m] = 0;
+    
+    // pre-fills array except in case of rerolling individual die    
+    if (numberOfDice > 1){
+        for (var m = 0; m <= 6; m++){
+            diceTally[m] = 0;
+        }
     }
             
     if (diceType == 3){
@@ -119,6 +122,40 @@ function toggleDiceStatus(selectedDie){
 function reRoll(selectedDie, diceType){
     var diceData = generateDice(1,diceType);
     selectedDie.addClass("d6_active").removeClass("d6_inactive");
+    
+    // find the value of the current Die
+    if (selectedDie.hasClass("d6_1")){
+        diceTally[1] -= 1;
+    }
+    else if (selectedDie.hasClass("d6_2")){
+        diceTally[2] -= 1;        
+    }
+    else if (selectedDie.hasClass("d6_3")){
+        diceTally[3] -= 1;        
+    }
+    else if (selectedDie.hasClass("d6_4")){
+        diceTally[4] -= 1;        
+    }
+    else if (selectedDie.hasClass("d6_5")){
+        diceTally[5] -= 1;        
+    }
+    else if (selectedDie.hasClass("d6_6")){
+        diceTally[6] -= 1;        
+    }
+
+
+    //print HTML for dice tallies
+    $("#diceTally").empty();
+    
+    $("#diceTally").append("<ol>");
+    for (var l = 1; l <= diceType; l++){
+        $("#diceTally").append("<li>" + diceTally[l] + "</li>");
+    }
+    $("#diceTally").append("</ol>"); 
+    
     selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0][0]);
+
     // !!!!! need to fix so rerolling updates the dice total and tally !!!!!
 }
+
+
