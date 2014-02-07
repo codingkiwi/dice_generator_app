@@ -1,4 +1,3 @@
-var diceNumber = [];
 var diceTally = [];
 var diceTotal = 0;
     
@@ -28,13 +27,13 @@ pageInit();
 //Randomly generates numbers for the dice and returns an array of their values
 function generateDice(numberOfDice, diceType){
     
+    var diceNumber = [];
     // pre-fills array except in case of rerolling individual die    
     if (numberOfDice > 1){
         for (var m = 0; m <= 6; m++){
             diceTally[m] = 0;
         }
         diceTotal = 0;
-        diceNumber = [];
     }
             
     if (diceType == 3){
