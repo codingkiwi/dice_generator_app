@@ -1,9 +1,10 @@
+// global variables to hold the sum of all dice, and a tally of the amount of dith each number.
 var diceTally = [];
 var diceTotal = 0;
     
 // initialization function
 function pageInit() {
-    // Hook up the roll dice function to be triggered when a user clicks in the dice div area
+    // Hook up the roll dice function to be triggered when a user clicks in an individual dice's div
     $(document).on("click", "#rollButton", function(){
         roll($("#numberOfDice").val(), $("#diceType").val());
     });
@@ -24,58 +25,61 @@ function pageInit() {
 }
 pageInit();
 
-//Randomly generates numbers for the dice and returns an array of their values
-function generateDice(numberOfDice, diceType){
+// Randomly generates dice given three inputs: the amount of dice, whether the dice is d3 or d6, and if only the selected dice are being rerolled or all of the dice. Returns a sorted array of numbers.
+function generateDice(numberOfDice, diceType, isReroll){
     
-    var diceNumber = [];
-    // pre-fills array except in case of rerolling individual die    
-    if (numberOfDice > 1){
+    var diceNumbers = [];
+    
+    // pre-fills the tally array and clears the total variable for the initial roll  
+    if (isReroll !== true){
         for (var m = 0; m <= 6; m++){
             diceTally[m] = 0;
         }
         diceTotal = 0;
     }
-            
+    
+    // generates numbers for a 3 sided dice        
     if (diceType == 3){
         for (var i = 0; i < numberOfDice; i++){
-            diceNumber[i] = Math.round(Math.floor(Math.random() * 3)) + 1; 
-            if (diceNumber[i] == 1){
+            diceNumbers[i] = Math.round(Math.floor(Math.random() * 3)) + 1; 
+            if (diceNumbers[i] == 1){
                 diceTally[1] += 1;
             }
-            else if (diceNumber[i] == 2){
+            else if (diceNumbers[i] == 2){
                 diceTally[2] += 1;
             }
-            else if (diceNumber[i] == 3){
+            else if (diceNumbers[i] == 3){
                 diceTally[3] += 1;
             }
         }
     }
+    // generates numbers for a 6 sided dice
     else {
         for (var j = 0; j < numberOfDice; j++){
-            diceNumber[j] = Math.round(Math.floor(Math.random() * 6)) + 1; 
-            if (diceNumber[j] == 1){
+            diceNumbers[j] = Math.round(Math.floor(Math.random() * 6)) + 1; 
+            if (diceNumbers[j] == 1){
                 diceTally[1] += 1;
             }
-            else if (diceNumber[j] == 2){
+            else if (diceNumbers[j] == 2){
                 diceTally[2] += 1;
             }
-            else if (diceNumber[j] == 3){
+            else if (diceNumbers[j] == 3){
                 diceTally[3] += 1;
             }
-            else if (diceNumber[j] == 4){
+            else if (diceNumbers[j] == 4){
                 diceTally[4] += 1;
             }
-            else if (diceNumber[j] == 5){
+            else if (diceNumbers[j] == 5){
                 diceTally[5] += 1;
             }
-            else if (diceNumber[j] == 6){
+            else if (diceNumbers[j] == 6){
                 diceTally[6] += 1;
             }    
         }
     }
-    //sort dice numerically highest to lowest
-    diceNumber.sort(function(a,b){return b-a});
-    return diceNumber;
+    // sort dice numerically highest to lowest
+    diceNumbers.sort(function(a,b){return b-a});
+    return diceNumbers;
 }
 
 // removes the current dice and calls generateDice, then adds the new dice to the page
@@ -85,15 +89,15 @@ function roll(numberOfDice, diceType){
     $("#diceTotal").empty();
     $("#diceTally").empty();
     
-    //re-roll and re-insert new dice
+    // roll new dice
     var diceData = generateDice(numberOfDice, diceType);
     
-    //print HTML for new dice list
+    // print HTML for new dice list
     for (var i = 0; i < numberOfDice; i++){
         $("#diceList").append("<li class=\"dice" + i + " d6_active d6_" + diceData[i] + "\"><a href=\"#6\"></a></li>");
         diceTotal = diceTotal + diceData[i];
     }
-    //print HTML for dice total score
+    // print HTML for dice total score
     $("#diceTotal").append("<h2>Total: " + diceTotal + "</h2>");
     
     //print HTML for dice tallies
@@ -106,25 +110,12 @@ function roll(numberOfDice, diceType){
     return false;
 }
 
-// toggle the dice sprite when selected between active and inactive
-function toggleDiceStatus(selectedDie){
-    if (selectedDie.hasClass("d6_active")){
-        selectedDie.addClass("d6_inactive").removeClass("d6_active");
-    }
-    else if (selectedDie.hasClass("d6_inactive")){
-        selectedDie.addClass("d6_active").removeClass("d6_inactive");
-    }
-    else {
-        console.error("toggleDiceStatus function failed to select a status class");
-    }
-}
-
 // generate new numbers for deselected dice and change the CSS class accordingly
 function reRoll(selectedDie, diceType){
-    var diceData = generateDice(1,diceType);
+    var diceData = generateDice(1,diceType, true);
     toggleDiceStatus(selectedDie);
     
-    // find the value of the current Die
+    // find the value of the current Die and update the dice total and tallies accordingly
     if (selectedDie.hasClass("d6_1")){
         diceTally[1] -= 1;
         diceTotal -= 1;
@@ -152,7 +143,7 @@ function reRoll(selectedDie, diceType){
     
     diceTotal += diceData[0];
 
-    //re-print HTML for dice tallies and totals
+    // re-print HTML for dice tallies and totals
     $("#diceTally").empty();
     $("#diceTotal").empty();
     
@@ -165,6 +156,19 @@ function reRoll(selectedDie, diceType){
     $("#diceTally").append("</ol>"); 
     
     selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0]);
+}
+
+// toggle the dice sprite when selected between active and inactive
+function toggleDiceStatus(selectedDie){
+    if (selectedDie.hasClass("d6_active")){
+        selectedDie.addClass("d6_inactive").removeClass("d6_active");
+    }
+    else if (selectedDie.hasClass("d6_inactive")){
+        selectedDie.addClass("d6_active").removeClass("d6_inactive");
+    }
+    else {
+        console.error("toggleDiceStatus function failed to select a status class");
+    }
 }
 
 
