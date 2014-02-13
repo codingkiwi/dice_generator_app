@@ -98,7 +98,7 @@ function roll(numberOfDice, diceType){
         diceTotal = diceTotal + diceData[i];
     }
     // print HTML for dice total score
-    $("#diceTotal").append("<h2>Total: " + diceTotal + "</h2>");
+    $("#diceTotal").append("<h3>Total: " + diceTotal + "</h3>");
     
     //print HTML for dice tallies
     $("#diceTally").append("<ol>");
