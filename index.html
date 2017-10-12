@@ -6,97 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="noindex">
 
-    <!-- Bootstrap 4.0 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <!-- jquery cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    
+	<!-- Bootstrap 3.37 Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <!-- Bootstrap 3.37 Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
     <!-- stylesheet -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    
-    <!-- jquery cdn -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     
     <title>Dice Chest || Dice Rolling App</title>
     
 </head>
 
 <body>
+  
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="#">DiceChest</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">Page 3</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+        
+    <div class="container" id="diceControlContainer">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="number" min="0" step="1" id="numberOfDice">
+
+                <select id="diceType">
+                    <option value="6">D6</option>
+                    <option value="3">D3</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button id="rollButton" type="button">Roll Dice</button>
+                <button id="reRollButton" type="button">Re-Roll Selected Dice</button>
+            </div>
+        </div>
+    </div>
     
-<!--
-    <select id="numberOfDice">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-        <option value="19">19</option>
-        <option value="20">20</option>
-        <option value="21">21</option>
-        <option value="22">22</option>
-        <option value="23">23</option>
-        <option value="24">24</option>
-        <option value="25">25</option>
-        <option value="26">26</option>
-        <option value="27">27</option>
-        <option value="28">28</option>
-        <option value="29">29</option>
-        <option value="30">30</option>
-        <option value="31">31</option>
-        <option value="32">32</option>
-        <option value="33">33</option>
-        <option value="34">34</option>
-        <option value="35">35</option>
-        <option value="36">36</option>
-        <option value="37">37</option>
-        <option value="38">38</option>
-        <option value="39">39</option>
-        <option value="40">40</option>
-        <option value="41">41</option>
-        <option value="44">44</option>
-        <option value="43">43</option>
-        <option value="44">44</option>
-        <option value="45">45</option>
-        <option value="46">46</option>
-        <option value="47">47</option>
-        <option value="48">48</option>
-        <option value="49">49</option>
-        <option value="50">50</option>
-    </select> 
--->
-    <input type="number" min="0" step="1" id="numberOfDice">
+    <div class="container" id="diceInfoContainer">
+        <!-- div to output dice total dynamically -->
+        <div id="diceTotal"></div>
+        
+        <div class=col-xs-3>
+            <!-- div to output dice tally dynamically -->
+            <ol id="diceTally"></ol>
+        </div>
+        <div class="col-xs-3">
+            <!-- div to output dice tally dynamically -->
+            <ol id="diceTallyCumulative"></ol>
+        </div>
+    </div>
     
-    <select id="diceType">
-        <option value="6">D6</option>
-        <option value="3">D3</option>
-    </select>
-    
-    <button id="rollButton" type="button">Roll Dice</button>
-    <button id="reRollButton" type="button">Re-Roll Selected Dice</button>
-    
-    <!-- div to output dice total dynamically -->
-    <div id="diceTotal"></div>
-    
-    <!-- div to output dice tally dynamically -->
-    <ol id="diceTally"></ol>
-    
-    <!-- div to output dice tally dynamically -->
-    <ol id="diceTallyCumulative"></ol>
-    
-    <!-- div to output dice images dynamically -->
-    <div id="mainContent">
-        <ul class="d6_dice" id="diceList"></ul>
+    <div class="container" id="diceOutputContainer">
+        <div clas="row">
+            <div class="col-md-6">
+                <!-- div to output dice images dynamically -->
+                <div id="mainContent">
+                    <ul class="d6_dice" id="diceList"></ul>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- execute diceroll script -->
