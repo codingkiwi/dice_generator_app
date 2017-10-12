@@ -6,7 +6,14 @@ var diceTotal = 0;
 function pageInit() {
     // Hook up the roll dice function to be triggered when a user clicks in an individual dice's div
     $(document).on("click", "#rollButton", function(){
-        roll($("#numberOfDice").val(), $("#diceType").val());
+        var numberOfDice = $("#numberOfDice").val();
+        if(Math.floor(numberOfDice) == numberOfDice && $.isNumeric(numberOfDice)){
+            roll(numberOfDice, $("#diceType").val());           
+        }
+        else {
+            alert("please input a valid number of dice");
+        }
+
     });
         
     // Toggle the state of an individual die via css when it is clicked
@@ -88,6 +95,7 @@ function roll(numberOfDice, diceType){
     $("#diceList").empty();
     $("#diceTotal").empty();
     $("#diceTally").empty();
+    $("#diceTallyCumulative").empty();
     
     // roll new dice
     var diceData = generateDice(numberOfDice, diceType);
@@ -106,6 +114,16 @@ function roll(numberOfDice, diceType){
         $("#diceTally").append("<li>" + diceTally[l] + "</li>");
     }
     $("#diceTally").append("</ol>"); 
+    
+    //print HTML for dice cumulative tallies
+    $("#diceTallyCumulative").append("<ol>");
+    var runningTally = 0;
+    for (var l = 1; l <= diceType; l++){
+        runningTally += diceTally[l];
+        $("#diceTallyCumulative").append("<li>" + runningTally + "</li>");
+    }
+    $("#diceTallyCumulative").append("</ol>"); 
+    runningTally = 0;
     
     return false;
 }
@@ -146,6 +164,8 @@ function reRoll(selectedDie, diceType){
     // re-print HTML for dice tallies and totals
     $("#diceTally").empty();
     $("#diceTotal").empty();
+    $("#diceTallyCumulative").empty();
+    
     
     $("#diceTotal").append("<h2>Total: " + diceTotal + "</h2>");
     
@@ -154,6 +174,15 @@ function reRoll(selectedDie, diceType){
         $("#diceTally").append("<li>" + diceTally[l] + "</li>");
     }
     $("#diceTally").append("</ol>"); 
+    
+    $("#diceTallyCumulative").append("<ol>");
+    var runningTally = 0;
+    for (var l = 1; l <= diceType; l++){
+        runningTally += diceTally[l];
+        $("#diceTallyCumulative").append("<li>" + runningTally + "</li>");
+    }
+    $("#diceTallyCumulative").append("</ol>"); 
+    runningTally = 0;
     
     selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0]);
 }

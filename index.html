@@ -20,6 +20,8 @@
 </head>
 
 <body>
+    
+<!--
     <select id="numberOfDice">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -71,7 +73,9 @@
         <option value="48">48</option>
         <option value="49">49</option>
         <option value="50">50</option>
-    </select>
+    </select> 
+-->
+    <input type="number" min="0" step="1" id="numberOfDice">
     
     <select id="diceType">
         <option value="6">D6</option>
@@ -86,6 +90,9 @@
     
     <!-- div to output dice tally dynamically -->
     <ol id="diceTally"></ol>
+    
+    <!-- div to output dice tally dynamically -->
+    <ol id="diceTallyCumulative"></ol>
     
     <!-- div to output dice images dynamically -->
     <div id="mainContent">
