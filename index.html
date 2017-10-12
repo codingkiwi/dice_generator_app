@@ -45,18 +45,26 @@
     </nav>
         
     <div class="container" id="diceControlContainer">
-        <div class="row">
-            <div class="col-md-3">
-                <input type="number" min="0" step="1" id="numberOfDice">
+        <div class="row" id="diceInputRow">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <label>Number Of Dice:</label>
+                    <input class="form-control" type="number" min="0" step="1" id="numberOfDice">
+                    
 
-                <select id="diceType">
-                    <option value="6">D6</option>
-                    <option value="3">D3</option>
-                </select>
+                    <select id="diceType">
+                        <option value="6">D6</option>
+                        <option value="3">D3</option>
+                    </select>
+                    
+                </div>
+                
             </div>
-            <div class="col-md-3">
-                <button id="rollButton" type="button">Roll Dice</button>
-                <button id="reRollButton" type="button">Re-Roll Selected Dice</button>
+        </div>
+        <div class="row">      
+            <div class="col-md-6">
+                <button class="btn btn-default" id="rollButton" type="button">Roll Dice</button>
+                <button class="btn btn-default" id="reRollButton" type="button">Re-Roll Selected</button>
             </div>
         </div>
     </div>
