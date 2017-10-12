@@ -1,15 +1,3 @@
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Roboto Regular'), local('Roboto-Regular'), url(http://themes.googleusercontent.com/static/fonts/roboto/v10/2UX7WLTfW3W8TclTUvlFyQ.woff) format('woff');
-}
-
-body {
-    font-family: "Roboto Regular", arial;
-}
-
 /* Styling for dice image sprites */
 
 .d6_dice{
@@ -41,3 +29,20 @@ body {
 .d6_4{background-position: 0 65px;}
 .d6_5{background-position: 130px 65px;}
 .d6_6{background-position: 65px 65px;}
+
+/* Main styling */
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url(http://themes.googleusercontent.com/static/fonts/roboto/v10/2UX7WLTfW3W8TclTUvlFyQ.woff) format('woff');
+}
+
+body {
+    font-family: "Roboto Regular", arial;
+}
+
+ul {
+    list-style: none;
+}

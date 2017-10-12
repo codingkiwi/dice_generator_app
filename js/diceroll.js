@@ -109,20 +109,20 @@ function roll(numberOfDice, diceType){
     $("#diceTotal").append("<h3>Total: " + diceTotal + "</h3>");
     
     //print HTML for dice tallies
-    $("#diceTally").append("<ol>");
+    $("#diceTally").append("<ul>");
     for (var l = 1; l <= diceType; l++){
-        $("#diceTally").append("<li>" + diceTally[l] + "</li>");
+        $("#diceTally").append("<li>" + l + ": " + diceTally[l] + "</li>");
     }
-    $("#diceTally").append("</ol>"); 
+    $("#diceTally").append("</ul>"); 
     
     //print HTML for dice cumulative tallies
-    $("#diceTallyCumulative").append("<ol>");
+    $("#diceTallyCumulative").append("<ul>");
     var runningTally = 0;
     for (var l = 1; l <= diceType; l++){
         runningTally += diceTally[l];
-        $("#diceTallyCumulative").append("<li>" + runningTally + "</li>");
+        $("#diceTallyCumulative").append("<li>" + l + "+ " + runningTally + "</li>");
     }
-    $("#diceTallyCumulative").append("</ol>"); 
+    $("#diceTallyCumulative").append("</ul>"); 
     runningTally = 0;
     
     return false;
@@ -169,19 +169,19 @@ function reRoll(selectedDie, diceType){
     
     $("#diceTotal").append("<h2>Total: " + diceTotal + "</h2>");
     
-    $("#diceTally").append("<ol>");
+    $("#diceTally").append("<ul>");
     for (var l = 1; l <= diceType; l++){
         $("#diceTally").append("<li>" + diceTally[l] + "</li>");
     }
-    $("#diceTally").append("</ol>"); 
+    $("#diceTally").append("</ul>"); 
     
-    $("#diceTallyCumulative").append("<ol>");
+    $("#diceTallyCumulative").append("<ul>");
     var runningTally = 0;
     for (var l = 1; l <= diceType; l++){
         runningTally += diceTally[l];
         $("#diceTallyCumulative").append("<li>" + runningTally + "</li>");
     }
-    $("#diceTallyCumulative").append("</ol>"); 
+    $("#diceTallyCumulative").append("</ul>"); 
     runningTally = 0;
     
     selectedDie.removeClass("d6_1 d6_2 d6_3 d6_4 d6_5 d6_6").addClass("d6_" + diceData[0]);
